@@ -1,0 +1,54 @@
+body {
+    background: url("img/background.jpg") no-repeat;
+}
+.table {
+    text-align: center;
+    margin: auto;
+    margin-left: 50px;
+    width: 500px;
+    height: 500px;
+}
+#tableStatistic{
+    width: 250px;
+    height: 350px;
+    text-align: center;
+    margin: auto;
+}
+#tableStatistic td {
+    border: solid black 2px;
+}
+.table td {
+    border: solid black 1px;
+}
+#page {
+    width : 80%;
+}
+#panel {
+    width: 75px;
+    height: 500px;
+    border: solid black 1px;
+}
+
+#panel td{
+    width: 40px;
+    height: 40px;
+    border: solid black 1px;
+}
+#panel td:hover {
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+    transition: 0.3s linear;
+}
+.shadow {
+    opacity:0.2;
+    background-color: darkgray;
+    transition: 0.4s ease-in-out;
+}
+.myField {
+    opacity: 1;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+    transition: none;
+}
