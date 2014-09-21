@@ -4,7 +4,7 @@ body {
 .table {
     text-align: center;
     margin: auto;
-    margin-left: 50px;
+    margin-left: 40px;
     width: 500px;
     height: 500px;
 }
@@ -17,6 +17,19 @@ body {
 #tableStatistic td {
     border: solid black 2px;
 }
+#tableStatistic img {
+    height: 15px;
+    width: 15px;
+    margin-left: 10px;
+    border: solid black 1px;
+    border-radius: 5px;
+}
+#tableStatistic img:hover {
+    transform: scale(1.01);
+    background-color: darkgray;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
 .table td {
     border: solid black 1px;
 }
@@ -42,7 +55,11 @@ body {
 .shadow {
     opacity:0.2;
     background-color: darkgray;
-    transition: 0.4s ease-in-out;
+    transition: 0.5s ease-in-out;
+}
+.no-shadow {
+    opacity: 1;
+    transition: 0.7s ease-in-out;
 }
 .myField {
     opacity: 1;
@@ -52,3 +69,4 @@ body {
     -o-transition: none;
     transition: none;
 }
+
