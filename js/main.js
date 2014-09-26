@@ -31,78 +31,19 @@ $(document).ready(function(){
     drawGamePanel();
     getAllCells.call(playerField, playerField,24,24);
     getAllCells.call(myField, myField,0,0);
-    var moves = 0; // number of moves player
+    myField.moves = 0; // number of moves player
     var $allCells = $('#gameField td'); //all cells in game field
 
     myField.size =  myField.myCells.length;
     $('#player1').html('<b>'+myField.size+'</b>');
-    $('#player1+td').html('<b>'+moves+'</b>');
+    $('#player1+td').html('<b>'+myField.moves+'</b>');
     $(myField.myCells).addClass('myField');
 
     playerField.size =  playerField.myCells.length;
     $('#player2').html('<b>'+playerField.size+'</b>');
     $(playerField.myCells).addClass('myField');
 
-    $('#panel td').on('click', function () {
-        if (this.className == 'shadow'){ // if disabled colors
-            return;
-        }
-        moves++;
-        $.each($('#panel td.shadow'), function () {
-           if ($(this).css('backgroundColor') == myField.currentColor){
-               $(this).removeClass('shadow'); //remove shadow previous element
-           }
-        });
-        myField.currentColor = $(this).css('backgroundColor');
-        myField.colorAllCells();
-        compareCells.call(myField, 0, 0);
-
-        $(this).addClass('shadow');
-        myField.size = myField.myCells.length;
-        $(myField.myCells).addClass('myField');
-        $('#player1').html('<b>'+myField.size+'</b>');
-        $('#player1+td').html('<b>'+moves+'</b>');
-
-        $allCells.removeClass("no-shadow").addClass('shadow');
-        setTimeout(function () {
-            $allCells.removeClass('shadow').addClass('no-shadow');
-        }, 1200);
-        setTimeout(function () {
-            var element = chooseElementEasyBot();
-            $.each($('#panel td.shadow'), function () {
-                if ($(this).css('backgroundColor') == playerField.currentColor) {
-                    $(this).removeClass('shadow');
-                }
-            });
-            playerField.currentColor = $(element).css('backgroundColor');
-            playerField.colorAllCells();
-            compareCells.call(playerField, 24, 24);
-            $(element).addClass('shadow');
-            playerField.size = playerField.myCells.length;
-            $(playerField.myCells).addClass('myField');
-            $('#player2').html('<b>'+playerField.size+'</b>');
-
-            $allCells.removeClass("no-shadow").addClass('shadow');
-            setTimeout(function () {
-                $allCells.removeClass('shadow').addClass('no-shadow');
-            }, 1200);
-            },2400);
-        if (myField.size+playerField.size >= 625){
-            if (myField.size>playerField.size){
-                alert("YOU WIN!GOOD JOB!")
-            }
-            if (myField.size<playerField.size){
-                alert("YOU LOSE!TRY AGAIN!")
-            }
-            if (myField.size == playerField.size){
-                alert("WTF!?")
-            }
-        }
-    });
-
-/*    $('#select').on('change', function () {
-
-    });*/
+    $('#panel td').on('click', getNewCells);
 
     $('#gameField').on('mousedown', function () {
         $allCells.removeClass('no-shadow').addClass('shadow');
@@ -118,7 +59,67 @@ $(document).ready(function(){
         }
     })
 });
-function chooseElementEasyBot() {
+function getNewCells() {
+    if (this.className == 'shadow'){ // if disabled colors
+        return;
+    }
+    $('#panel td').unbind('click');
+    myField.moves++;
+    var $allCells = $('#gameField td');
+    $.each($('#panel td.shadow'), function () {
+        if ($(this).css('backgroundColor') == myField.currentColor){
+            $(this).removeClass('shadow'); //remove shadow previous element
+        }
+    });
+    myField.currentColor = $(this).css('backgroundColor');
+    myField.colorAllCells();
+    compareCells.call(myField, 0, 0);
+
+    $(this).addClass('shadow');
+    myField.size = myField.myCells.length;
+    $(myField.myCells).addClass('myField');
+    $('#player1').html('<b>'+myField.size+'</b>');
+    $('#player1+td').html('<b>'+myField.moves+'</b>');
+
+    $allCells.removeClass("no-shadow").addClass('shadow');
+    setTimeout(function () {
+        $allCells.removeClass('shadow').addClass('no-shadow');
+    }, 1200);
+    setTimeout(function () {
+        var element = chooseElementBot();
+        $.each($('#panel td.shadow'), function () {
+            if ($(this).css('backgroundColor') == playerField.currentColor) {
+                $(this).removeClass('shadow');
+            }
+        });
+        playerField.currentColor = $(element).css('backgroundColor');
+        playerField.colorAllCells();
+        compareCells.call(playerField, 24, 24);
+        $(element).addClass('shadow');
+        playerField.size = playerField.myCells.length;
+        $(playerField.myCells).addClass('myField');
+        $('#player2').html('<b>'+playerField.size+'</b>');
+
+        $allCells.removeClass("no-shadow").addClass('shadow');
+        setTimeout(function () {
+            $allCells.removeClass('shadow').addClass('no-shadow');
+        }, 1200);
+        $('#panel td').bind('click', getNewCells)
+    },2400);
+    if (myField.size+playerField.size >= 625){
+        if (myField.size>playerField.size){
+            alert("YOU WIN!GOOD JOB!")
+        }
+        if (myField.size<playerField.size){
+            alert("YOU LOSE!TRY AGAIN!")
+        }
+        if (myField.size == playerField.size){
+            alert("WTF!?")
+        }
+    }
+}
+
+function chooseElementBot() {
     var choise =  $('#select');
     if (choise.val() == 'easy') {
         var arr = [];
